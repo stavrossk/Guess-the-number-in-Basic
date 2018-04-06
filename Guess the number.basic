@@ -1,0 +1,51 @@
+[start]
+cls
+print "I'm thinking of a number..."
+print "from 1 to 50." : print : print
+guesses = 10 : d = 100 : n = INT(RND(1)*50)+1
+
+[prompt]
+input "What do you guess? "; guess$
+if VAL(guess$)<= 0 then print "pick from 1 to 50" : goto [prompt]
+g = VAL(guess$) : guesses = guesses - 1
+
+if g = n then [win]
+
+if g > n then nd = g-n : h = 1
+if g < n then nd = n-g : l = 1
+if nd < d then c=g : d = nd
+if h AND l then s=1
+
+print
+if s then print "You have guessed numbers both higher";chr$(13);"and lower than my number."
+print "Closest so far: "; c , "Guesses left: ";guesses
+
+if guesses > 0 then goto [prompt]
+
+[win]
+print
+print "You guessed my number in " ; 10-guesses ; " tries."
+select case
+case guesses<3
+    print "Not bad for a beginner."
+case guesses<5
+    PRINT "Well done!"
+CASE guesses=5
+    PRINT "That's uncanny..."
+case guesses>5
+    PRINT "You just got lucky that's all,"
+end select
+goto [try]
+
+[lose]
+print
+print "You ran out of guesses!"
+print "       I WIN!  :)"
+end
+
+[try]
+input "Try again? (y/n) "; try$
+try$=lower$(try$)
+if LEFT$(try$, 1)= "y" then goto [start]
+end
+ 
